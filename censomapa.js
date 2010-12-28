@@ -5,6 +5,8 @@ Array.min = function( array ){
     return Math.min.apply( Math, array );
 };
 
+// hay que meter los extents de cada polygono en sus properties
+// al pedo calcularlo todo el tiempo
 var featureExtents = function(feature) {
     var x = Array();
     var y = Array();
