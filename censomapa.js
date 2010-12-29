@@ -1,30 +1,6 @@
-Array.max = function( array ){
-    return Math.max.apply( Math, array );
-};
-Array.min = function( array ){
-    return Math.min.apply( Math, array );
-};
-
-// hay que meter los extents de cada polygono en sus properties
-// al pedo calcularlo todo el tiempo
 var featureExtents = function(feature) {
-    var x = Array();
-    var y = Array();
-    var coords = feature.data.geometry.coordinates;
-    var points = $.map(coords, function(a){return a});
-    if (feature.data.geometry.type == 'MultiPolygon') points = $.map(points, function(a){return a});
-    // var points = $.map(polygons, function(a){return a});
-    $.map(points, function(a){
-              if(!isNaN(a[0])){x.push(a[0])}; 
-              if(!isNaN(a[1])){y.push(a[1])};
-	  });
-    
-    xMax = Array.max(x);
-    xMin = Array.min(x);
-    yMax = Array.max(y);
-    yMin = Array.min(y);
-    return [{lon:xMin,lat:yMin},{lon:xMax,lat:yMax}];
-    //  map.extent([{lon:xMin,lat:yMin},{lon:xMax,lat:yMax}])
+    var b = feature.data.properties.bounds;
+    return [{lon:b[0],lat:b[1]},{lon:b[2],lat:b[3]}];
 };
 
 var loadProvincias = function(e) {
@@ -34,7 +10,7 @@ var loadProvincias = function(e) {
 	jQuery.data(feature.element, 'originalClass', 'color' + ((i % 5) + 1));
         feature.element.setAttribute('class', 'color' + ((i % 5) + 1));
 
-        var name = feature.data.properties.ADMIN_NAME;
+	var name = feature.data.properties.provincia;
        	jQuery.data($("#menu li a:contains('" + name.toUpperCase() + "')")[0], 'feature', feature);
     }
 };
@@ -84,13 +60,12 @@ $(document).ready(function() {
 					       })
 		                     .click(function(e) {
 						var f = jQuery.data($(this)[0], 'feature');
-						var fext = featureExtents(f);
-						fext[0].lon -= 2;
-						fext[1].lon += 2;
-						map.extent(fext);
+						map.extent(featureExtents(f));
 						// get json para los departamentos
                                                 map.add(po.geoJson()
-							.url("provincias/" + f.data.properties.ADMIN_NAME.toUpperCase() + ".json").tile(false).on('load', loadDepartamentos));
+							.url("provincias/" + f.data.properties.provincia.toUpperCase() + ".json")
+                                                        .tile(false)
+                                                        .on('load', loadDepartamentos));
 					
 					    });
 		       
