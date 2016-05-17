@@ -34,14 +34,13 @@ var map = po.map()
 
 
 
+
 map.add(po.image()
-	.url(po.url("http://{S}tile.cloudmade.com"
-		    + "/1a1b06b230af4efdbb989ea99e9841af" // http://cloudmade.com/register
-		    + "/20760/256/{Z}/{X}/{Y}.png")
-	     .hosts(["a.", "b.", "c.", ""])));
+    .url(po.url("http://{S}tile.openstreetmap.org/{Z}/{X}/{Y}.png")
+        .hosts(["a.", "b.", "c.", ""])));
 
 
-var provincias = map.add(po.geoJson()
+map.add(po.geoJson()
 			 .url("provincias.json")
 			 .tile(false).on('load', loadProvincias));
 
