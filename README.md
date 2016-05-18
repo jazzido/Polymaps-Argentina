@@ -1,4 +1,4 @@
-*IMPORTANTE*: Este repositorio existe por razones históricas, pero la librería PolyMaps no está siendo mantenida. Se recomienda usar [Leaflet](http://leafletjs.com/)
+*IMPORTANTE*: Este repositorio existe por razones históricas, pero la librería PolyMaps no está siendo mantenida. Se recomienda usar [Leaflet](http://leafletjs.com/), vea [esta implementación](https://github.com/AlexisCaffa/Leaflet-Argentina) con el mismo ejemplo.
 
 <hr>
 
